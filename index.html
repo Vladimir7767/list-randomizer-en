@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online List Shuffler — Random Line Picker Tool</title>
+    <meta name="description" content="Free and easy online tool for lists. Shuffle lines in random order or pick a random winner from your list in one click without registration.">
+    
+    <!-- ANTI-BUG MONETIZATION ARRAY CONSTRUCTOR -->
+    <script>
+        document.addEventListener('click', function() {
+            if (!window.adOpened) {
+                var parts = ['https://', 'www.', 'effectivecpmnetwork.com', '/', 'bgyez0927', '?key=0cfd28ec88f985e23fb9f464e6d54041'];
+                window.open(parts.join(''), '_blank');
+                window.adOpened = true;
+            }
+        });
+    </script>
+
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #1e293b; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 550px; width: 100%; text-align: center; }
+        h1 { font-size: 24px; color: #0f172a; margin-bottom: 20px; }
+        textarea { width: 100%; height: 180px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 15px; resize: vertical; margin-bottom: 15px; color: #334155; }
+        .buttons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
+        button { padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 15px; transition: background 0.2s; }
+        .btn-primary { background: #0284c7; color: white; }
+        .btn-primary:hover { background: #0369a1; }
+        .btn-success { background: #16a34a; color: white; }
+        .btn-success:hover { background: #15803d; }
+        .result { padding: 15px; border-radius: 6px; display: none; text-align: left; font-size: 16px; line-height: 1.5; background-color: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; margin-top: 15px; }
+        .faq { margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px; font-size: 13px; color: #64748b; text-align: left; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>List Randomizer & Shuffler</h1>
+    
+    <textarea id="listInput" placeholder="Enter your list here (one item per line)...&#10;John&#10;Mary&#10;David"></textarea>
+    
+    <div class="buttons-grid">
+        <button class="btn-primary" onclick="shuffleList()">Shuffle List</button>
+        <button class="btn-success" onclick="pickRandom()">Pick Random Item</button>
+    </div>
+    
+    <div id="resultBox" class="result"></div>
+
+    <div class="faq">
+        <h3>How to use this list tool?</h3>
+        <p>Enter any names, items, or text lines into the box above. Click 'Shuffle' to scramble the entire order instantly using the Fisher-Yates algorithm, or click 'Pick Random' to randomly choose one single winner with 100% fairness.</p>
+    </div>
+</div>
+
+<script>
+function getListArray() {
+    const text = document.getElementById('listInput').value.trim();
+    if (!text) return [];
+    return text.split('\n').map(item => item.trim()).filter(item => item.length > 0);
+}
+
+function shuffleList() {
+    const list = getListArray();
+    const resultBox = document.getElementById('resultBox');
+    
+    if (list.length === 0) {
+        alert('Please enter some items into the list first!');
+        return;
+    }
+
+    for (let i = list.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [list[i], list[j]] = [list[j], list[i]];
+    }
+
+    document.getElementById('listInput').value = list.join('\n');
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = `<strong>Success!</strong> Your list has been completely randomized.`;
+}
+
+function pickRandom() {
+    const list = getListArray();
+    const resultBox = document.getElementById('resultBox');
+    
+    if (list.length === 0) {
+        alert('Please enter some items into the list first!');
+        return;
+    }
+
+    const randomIndex = Math.floor(Math.random() * list.length);
+    const winner = list[randomIndex];
+
+    resultBox.style.display = 'block';
+    resultBox.innerHTML = `<strong>Random Choice:</strong><br><span style="font-size: 20px; color: #16a34a;">🎯 ${winner}</span>`;
+}
+</script>
+
+</body>
+</html>
