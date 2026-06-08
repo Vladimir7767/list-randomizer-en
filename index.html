@@ -5,18 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Online List Shuffler — Random Line Picker Tool</title>
     <meta name="description" content="Free and easy online tool for lists. Shuffle lines in random order or pick a random winner from your list in one click without registration.">
-    
-    <!-- ANTI-BUG MONETIZATION ARRAY CONSTRUCTOR -->
-    <script>
-        document.addEventListener('click', function() {
-            if (!window.adOpened) {
-                var parts = ['https://', 'www.', 'effectivecpmnetwork.com', '/', 'bgyez0927', '?key=0cfd28ec88f985e23fb9f464e6d54041'];
-                window.open(parts.join(''), '_blank');
-                window.adOpened = true;
-            }
-        });
-    </script>
-
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; color: #1e293b; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         .container { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); max-width: 550px; width: 100%; text-align: center; }
@@ -29,6 +17,7 @@
         .btn-success { background: #16a34a; color: white; }
         .btn-success:hover { background: #15803d; }
         .result { padding: 15px; border-radius: 6px; display: none; text-align: left; font-size: 16px; line-height: 1.5; background-color: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; margin-top: 15px; }
+        .ad-space { display: none; margin-top: 20px; min-height: 100px; text-align: center; }
         .faq { margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 20px; font-size: 13px; color: #64748b; text-align: left; line-height: 1.6; }
     </style>
 </head>
@@ -37,7 +26,10 @@
 <div class="container">
     <h1>List Randomizer & Shuffler</h1>
     
-    <textarea id="listInput" placeholder="Enter your list here (one item per line)...&#10;John&#10;Mary&#10;David"></textarea>
+    <textarea id="listInput" placeholder="Enter your list here (one item per line)...
+John
+Mary
+David"></textarea>
     
     <div class="buttons-grid">
         <button class="btn-primary" onclick="shuffleList()">Shuffle List</button>
@@ -45,6 +37,11 @@
     </div>
     
     <div id="resultBox" class="result"></div>
+
+    <!-- БУФЕРНЫЙ КОНТЕЙНЕР ДЛЯ ПОДГРУЗКИ РЕКЛАМЫ — СТОП-БАГ -->
+    <div id="adContainer" class="ad-space">
+        <div id="container-e8c895e6c70ade8e4ef4a72354f42e97"></div>
+    </div>
 
     <div class="faq">
         <h3>How to use this list tool?</h3>
@@ -57,6 +54,36 @@ function getListArray() {
     const text = document.getElementById('listInput').value.trim();
     if (!text) return [];
     return text.split('\n').map(item => item.trim()).filter(item => item.length > 0);
+}
+
+// ФУНКЦИЯ АКТИВАЦИИ РЕКЛАМНОГО СКРИПТА
+function loadAdsterraNative() {
+    const adContainer = document.getElementById('adContainer');
+    
+    if (!window.adScriptLoaded) {
+        // Задаем параметры плейсмента для скрипта Adsterra, чтобы он точно знал куда рендерить баннер при позднем вызове
+        window.atOptions = {
+            'key' : 'e8c895e6c70ade8e4ef4a72354f42e97',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+
+        var adScript = document.createElement('script');
+        adScript.type = 'text/javascript';
+        adScript.async = true;
+        adScript.setAttribute('data-cfasync', 'false');
+        
+        var path = ['https://', 'bagelstoppage.', 'com/', 'e8c895e6c70ade8e4ef4a72354f42e97/', 'invoke.js'];
+        adScript.src = path.join('');
+        
+        adContainer.appendChild(adScript);
+        window.adScriptLoaded = true;
+    }
+
+    // Показываем блок с баннером
+    adContainer.style.display = 'block';
 }
 
 function shuffleList() {
@@ -76,6 +103,9 @@ function shuffleList() {
     document.getElementById('listInput').value = list.join('\n');
     resultBox.style.display = 'block';
     resultBox.innerHTML = `<strong>Success!</strong> Your list has been completely randomized.`;
+
+    // Вызываем рекламу строго после вычислений
+    loadAdsterraNative();
 }
 
 function pickRandom() {
@@ -92,6 +122,9 @@ function pickRandom() {
 
     resultBox.style.display = 'block';
     resultBox.innerHTML = `<strong>Random Choice:</strong><br><span style="font-size: 20px; color: #16a34a;">🎯 ${winner}</span>`;
+
+    // Вызываем рекламу строго после вычислений
+    loadAdsterraNative();
 }
 </script>
 
